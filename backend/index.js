@@ -41,14 +41,10 @@ app.post('/users', async (req, resp) => {
   const pw = user.password;
   const snapShot = await usersCollection.doc(em).get();
   const pw2 = snapShot.data().password;
-  console.log(pw2);
-  console.log(pw);
   if (pw === pw2) {
-    console.log("pw match");
     resp.status(200).send(user);
   }
   else {
-    console.log("pw doesn't match");
     resp.status(200).send('NOT_OK');
   }
 
@@ -108,18 +104,15 @@ app.get('/post/sorted', async (_, resp) => {
 app.post('/post/:id', async (req, res) => {
   const id = req.params['id'];
   const post = req.body;
-  console.log(post);
   const em = post.email;
   const newcontent = post.newContent;
   const newPost = { content: newcontent };
   const snapShot = await postsCollection.doc(id).get();
   const em2 = snapShot.data().email;
   if (em === em2) {
-    console.log("email match");
     await postsCollection.doc(id).update(newPost);
     res.status(200).send('UPDATED')
   } else {
-    console.log("email mismatch");
     res.status(200).send('NOT_OK');
   }
   /*
@@ -137,18 +130,13 @@ app.post('/posts/:id', async (req, res) => {
   res.status(200).send('DELETED');*/
   const id = req.params['id'];
   const post = req.body;
-  console.log(post);
   const em = post.email;
   const snapShot = await postsCollection.doc(id).get();
   const em2 = snapShot.data().email;
   if (em === em2) {
-    console.log(em);
-    console.log(em2);
-    console.log("email match");
     await postsCollection.doc(id).delete();
     res.status(200).send('DELETED');
   } else {
-    console.log("email mismatch");
     res.status(200).send('NOT_OK');
   }
 });

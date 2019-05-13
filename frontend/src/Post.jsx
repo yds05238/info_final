@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Post({ id, email, date, content, editPost, deletePost }) {
+export default function Post({ id, email, date, content, deletePost }) {
   return (
     <div>
       <div>Email: {email}</div>
@@ -10,7 +10,6 @@ export default function Post({ id, email, date, content, editPost, deletePost })
         <div>{content}</div>
       </div>
       <div>
-        <button onClick={() => editPost(id, content)}>Edit</button>
         <button onClick={() => deletePost(id)}>Delete</button>
       </div>
     </div>

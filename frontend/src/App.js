@@ -53,6 +53,8 @@ export default class App extends Component {
     const user = { text, email, password };
     if (text !== 'NOT_OK') {
       this.setState(({ currentuser }) => ({ currentuser: user }));
+    } else {
+      alert('email already taken');
     }
 
   };

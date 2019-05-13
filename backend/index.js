@@ -19,7 +19,6 @@ app.get('/', (_, resp) => resp.send('Hello World!'));
 const postsCollection = db.collection('posts');
 const usersCollection = db.collection('users');
 
-
 // create a user
 app.post('/user', async (req, resp) => {
   const user = req.body;
@@ -32,7 +31,6 @@ app.post('/user', async (req, resp) => {
     resp.status(200).send(addDoc.id);
   }
 });
-
 
 // login a user
 app.post('/users', async (req, resp) => {
@@ -47,9 +45,7 @@ app.post('/users', async (req, resp) => {
   else {
     resp.status(200).send('NOT_OK');
   }
-
 });
-
 
 // read all users
 app.get('/user', async (_, resp) => {
@@ -79,65 +75,23 @@ app.post('/post', async (req, resp) => {
   resp.status(200).send(addedDoc.id);
 });
 
-// read all posts
+// read all posts sorted
 app.get('/post', async (_, resp) => {
-  const allPostsDoc = await postsCollection.get();
+  const allPostsDoc = await postsCollection.orderBy('date', 'desc').get();
   resp.status(200).json(allPostsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 });
 
-// 2019-04-17
-app.get('/post/today', async (_, resp) => {
-  const today = new Date();
-  const todayString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  const todayPostsDoc = await postsCollection.where('date', '==', todayString).get();
-  resp.status(200).json(todayPostsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});
-
-
-// sorted posts
-app.get('/post/sorted', async (_, resp) => {
-  const sortedPosts = await postsCollection.orderBy('date', 'desc').get();
-  resp.status(200).json(sortedPosts.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});
-
-// update a post
-app.post('/post/:id', async (req, res) => {
-  const id = req.params['id'];
-  const post = req.body;
-  const em = post.email;
-  const newcontent = post.newContent;
-  const newPost = { content: newcontent };
-  const snapShot = await postsCollection.doc(id).get();
-  const em2 = snapShot.data().email;
-  if (em === em2) {
-    await postsCollection.doc(id).update(newPost);
-    res.status(200).send('UPDATED')
-  } else {
-    res.status(200).send('NOT_OK');
-  }
-  /*
-  const id = req.params['id'];
-  const newPost = req.body;
-  await postsCollection.doc(id).update(newPost);
-  res.status(200).send('UPDATED');*/
-});
-
 // delete a post
-app.post('/posts/:id', async (req, res) => {
-  /*
+app.delete('/post/:id', async (req, res) => {
   const id = req.params['id'];
-  await postsCollection.doc(id).delete();
-  res.status(200).send('DELETED');*/
-  const id = req.params['id'];
-  const post = req.body;
-  const em = post.email;
+  const e = req.body.em;
   const snapShot = await postsCollection.doc(id).get();
   const em2 = snapShot.data().email;
-  if (em === em2) {
+  if (e === em2) {
     await postsCollection.doc(id).delete();
     res.status(200).send('DELETED');
   } else {
-    res.status(200).send('NOT_OK');
+    res.status(200).send('NOT_DELETED');
   }
 });
 

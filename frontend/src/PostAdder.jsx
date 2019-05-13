@@ -9,10 +9,6 @@ export default class PostAdder extends Component {
     };
   };
 
-  /*state = { Email: 'example@gmail.com', content: '' };*/
-
-  /*emailChange = e => this.setState({ email: e.currentTarget.value });*/
-
   contentChange = e => this.setState({ content: e.currentTarget.value });
 
   submitClicked = () => {

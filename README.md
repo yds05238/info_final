@@ -15,6 +15,8 @@
 ``` javascript
 
 # Clone this repository.
+# Create Google Firestore database. Get private key for Firebase Admin Sdk. Rename json file to service-account.json. Save the file inside Backend directory. 
+
 # Inside Backend directory, run the following commands
 1. npm install 
 2. node index.js

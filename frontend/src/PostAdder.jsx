@@ -1,4 +1,21 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import { CardHeader } from '@material-ui/core';
+
+/*
+<div>
+        <div>{email}</div>
+        <textarea value={content} onChange={this.contentChange} />
+        <div>
+          <button onClick={this.submitClicked}>Submit</button>
+        </div>
+      </div>
+
+*/
+
 
 export default class PostAdder extends Component {
   constructor(props) {
@@ -22,13 +39,16 @@ export default class PostAdder extends Component {
   render() {
     const { email, content } = this.state;
     return (
-      <div>
-        <div>{email}</div>
-        <textarea value={content} onChange={this.contentChange} />
-        <div>
-          <button onClick={this.submitClicked}>Submit</button>
-        </div>
-      </div>
+      <Card className="card">
+        <CardHeader title="Adder" />
+        <CardContent>
+          <div>{email}</div>
+          <textarea value={content} onChange={this.contentChange} />
+        </CardContent>
+        <CardActions>
+          <Button onClick={this.submitClicked}>Submit</Button>
+        </CardActions>
+      </Card>
     );
   }
 }

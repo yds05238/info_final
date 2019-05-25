@@ -26,5 +26,5 @@
 ```
 
 ## Done :
-Now the backend is running at `http://localhost:8080` and frontend is running at `http://localhost:5000`
+Now the backend is running at `http://localhost:8080` and frontend is running at `http://localhost:3000`
 
